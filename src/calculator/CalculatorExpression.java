@@ -8,7 +8,26 @@ import java.util.Map;
 import java.util.TreeMap;
 
 
-public class CalculatorExpression {	
+public class CalculatorExpression {		
+
+	/**** MAPE ****/
+	private Map<Integer, String> operators ;
+	private Map<Integer, Double> operands ;
+	private Map<Integer, String> resultOperators ;
+	private Map<Integer, Double> resultOperands ;
+	
+	private String expression;
+	private String covertedExpression;
+	
+	/* Constructor for Calculator */
+	public CalculatorExpression(String expression) {
+		this.expression = expression;
+		operators = new TreeMap<>();
+		operands = new TreeMap<>();
+		resultOperators = new TreeMap<>();
+		resultOperands = new TreeMap<>();
+		covertedExpression = pushBlackFields(expression);
+	}
 
 	/**** OPERACIJE VISEG REDA x^y & sqrt ****/
 	
@@ -234,21 +253,8 @@ public class CalculatorExpression {
 		return returnStr.trim();
 	}
 
-	public void Calculator() {
+	public void Calculation() {		
 		
-		//Scanner scanner = new Scanner(System.in);
-		// System.out.println("Unesite jednacinu: ");
-
-		String expression = "(444^2)+(1+3*3^2)^2*sqrt(4^4.2*3-2)/(18-2)+8^2.2";
-
-		/**** MAPE ****/
-		Map<Integer, String> operators = new TreeMap<>();
-		Map<Integer, Double> operands = new TreeMap<>();
-		Map<Integer, String> resultOperators = new TreeMap<>();
-		Map<Integer, Double> resultOperands = new TreeMap<>();
-
-		String covertedExpression = pushBlackFields(expression);
-
 		String[] strArray = covertedExpression.split("\\s{1,}");
 
 		try {
@@ -335,7 +341,10 @@ public class CalculatorExpression {
 	
 	public static void main(String[] args) {
 		
-		new CalculatorExpression().Calculator();
+		//Scanner scanner = new Scanner(System.in);
+		// System.out.println("Unesite jednacinu: ");
+		
+		new CalculatorExpression("(444^2)+(1+3*3^2)^2*sqrt(4^4.2*3-2)/(18-2)+8^2.2").Calculation();
 		
 	}
 
