@@ -5,33 +5,28 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.TreeMap;
 
-public class CalculatorExpression {
+
+public class CalculatorExpression {	
 
 	/**** OPERACIJE VISEG REDA x^y & sqrt ****/
-
-	public static void powOperation(Map<Integer, String> operator, Map<Integer, Double> operands) {
+	private void powOperation(Map<Integer, String> operator, Map<Integer, Double> operands) {
 
 		ArrayList<Integer> operatorList = new ArrayList<>(operator.keySet());
 		int i;
 		for (i = 0; i < operatorList.size(); i++) {
 
 			if (i > 0 && operator.get(operatorList.get(i - 1)).equals("^")) {
-
 				String operation = operator.get(operatorList.get(i - 1));
 				operandsModification(operatorList.get(i - 1), operation, operands);
 				operatorsModification(operatorList, operatorList.get(i - 1), operation, operator);
-
 				i = i - 1;
 
 			} else if (operator.get(operatorList.get(i)).equals("^")) {
-
 				String operation = operator.get(operatorList.get(i));
 				operandsModification(operatorList.get(i), operation, operands);
 				operatorsModification(operatorList, operatorList.get(i), operation, operator);
-
 			}
 
 			if (i > 0 && (i == operator.size() - 1) && operator.get(operatorList.get(i)).equals("^")) {
@@ -40,7 +35,7 @@ public class CalculatorExpression {
 		}
 	}
 
-	public static void sqrtOperation(Map<Integer, String> operator, Map<Integer, Double> operands) {
+	private void sqrtOperation(Map<Integer, String> operator, Map<Integer, Double> operands) {
 
 		ArrayList<Integer> operatorList = new ArrayList<>(operator.keySet());
 		int i;
@@ -51,7 +46,6 @@ public class CalculatorExpression {
 				String operation = operator.get(operatorList.get(i - 1));
 				operandsModification(operatorList.get(i - 1), operation, operands);
 				operatorsModification(operatorList, operatorList.get(i - 1), operation, operator);
-
 				i = i - 1;
 
 			} else if (operator.get(operatorList.get(i)).equals("sqrt")) {
@@ -69,7 +63,7 @@ public class CalculatorExpression {
 	}
 
 	/**** OPERACIJE VISEG REDA * & / ****/
-	public static void highOperations(Map<Integer, String> operator, Map<Integer, Double> operands) {
+	private void highOperations(Map<Integer, String> operator, Map<Integer, Double> operands) {
 
 		ArrayList<Integer> operatorList = new ArrayList<>(operator.keySet());
 		int i;
@@ -102,7 +96,7 @@ public class CalculatorExpression {
 
 	/**** OPERACIJE NIZEG REDA '+' '-' ****/
 
-	public static void lowerOperations(Map<Integer, String> operator, Map<Integer, Double> operands) {
+	private void lowerOperations(Map<Integer, String> operator, Map<Integer, Double> operands) {
 
 		ArrayList<Integer> operatorList = new ArrayList<>(operator.keySet());
 		int i;
@@ -132,7 +126,7 @@ public class CalculatorExpression {
 
 	/**** MODIFIKACIJA MAPE SA OPERATORIMA ****/
 
-	public static void operatorsModification(List<Integer> list, Integer ind, String operation,
+	private void operatorsModification(List<Integer> list, Integer ind, String operation,
 			Map<Integer, String> operator) {
 
 		operator.remove(ind);
@@ -166,7 +160,7 @@ public class CalculatorExpression {
 
 	/**** MODIFIKACIJA MAPE SA OPERATORIMA ****/
 
-	public static void operandsModification(Integer ind, String operation, Map<Integer, Double> operands) {
+	private void operandsModification(Integer ind, String operation, Map<Integer, Double> operands) {
 
 		switch (operation) {
 
@@ -224,7 +218,7 @@ public class CalculatorExpression {
 		Map<Integer, Double> temp = new LinkedHashMap<>(operands);
 		Iterator<Integer> operandIterator = temp.keySet().iterator();
 		Integer iter;
-		//System.out.println(operands);
+		// System.out.println(operands);
 		while (operandIterator.hasNext()) {
 
 			if (operation.equals("sqrt")) {
@@ -243,7 +237,7 @@ public class CalculatorExpression {
 	}
 
 	/**** PODESAVANJE JEDNACINE ****/
-	public static String pushBlackFields(String str) {
+	private String pushBlackFields(String str) {
 
 		String returnStr = new String();
 
@@ -267,10 +261,10 @@ public class CalculatorExpression {
 		return returnStr.trim();
 	}
 
-	public static void main(String[] args) {
-
-		Scanner scanner = new Scanner(System.in);
-		//System.out.println("Unesite jednacinu: ");
+	public void Calculator() {
+		
+		//Scanner scanner = new Scanner(System.in);
+		// System.out.println("Unesite jednacinu: ");
 
 		String expression = "(444^2)+(1+3*sqrt3^2)^2*(4^4.2*3-2)/(18-2)+8^2.2";
 
@@ -305,25 +299,25 @@ public class CalculatorExpression {
 						l++;
 						i = k;
 					}
-					
-					//System.out.println("Operators : " + operators);
-					//System.out.println("Operands : " + operands + "\n");
+
+					// System.out.println("Operators : " + operators);
+					// System.out.println("Operands : " + operands + "\n");
 
 					sqrtOperation(operators, operands);
-					//System.out.println("Operators : " + operators);
-					//System.out.println("Operands : " + operands + "\n");
+					// System.out.println("Operators : " + operators);
+					// System.out.println("Operands : " + operands + "\n");
 
 					powOperation(operators, operands);
-					//System.out.println("Operators : " + operators);
-					//System.out.println("Operands : " + operands + "\n");
+					// System.out.println("Operators : " + operators);
+					// System.out.println("Operands : " + operands + "\n");
 
 					highOperations(operators, operands);
-					//System.out.println("Operators : " + operators);
-					//System.out.println("Operands : " + operands + "\n");
+					// System.out.println("Operators : " + operators);
+					// System.out.println("Operands : " + operands + "\n");
 					lowerOperations(operators, operands);
 
-					//System.out.println("Operators : " + operators);
-					//System.out.println("Operands : " + operands + "\n");
+					// System.out.println("Operators : " + operators);
+					// System.out.println("Operands : " + operands + "\n");
 
 					resultOperands.put(m, operands.get(0));
 					operands.clear();
@@ -339,31 +333,37 @@ public class CalculatorExpression {
 				}
 			}
 
-			//System.out.println("Operators : " + resultOperators);
-			//System.out.println("Operands : " + resultOperands + "\n");
+			// System.out.println("Operators : " + resultOperators);
+			// System.out.println("Operands : " + resultOperands + "\n");
 
 			sqrtOperation(resultOperators, resultOperands);
-			//System.out.println("Operators : " + resultOperators);
-			//System.out.println("Operands : " + resultOperands + "\n");
+			// System.out.println("Operators : " + resultOperators);
+			// System.out.println("Operands : " + resultOperands + "\n");
 
 			powOperation(resultOperators, resultOperands);
-			//System.out.println("Operators : " + resultOperators);
-			//System.out.println("Operands : " + resultOperands + "\n");
+			// System.out.println("Operators : " + resultOperators);
+			// System.out.println("Operands : " + resultOperands + "\n");
 
 			highOperations(resultOperators, resultOperands);
-			//System.out.println("Operators : " + resultOperators);
-			//System.out.println("Operands : " + resultOperands + "\n");
+			// System.out.println("Operators : " + resultOperators);
+			// System.out.println("Operands : " + resultOperands + "\n");
 			lowerOperations(resultOperators, resultOperands);
 
-			//System.out.println("Operators : " + resultOperators);
-			//System.out.println("Operands : " + resultOperands + "\n");
+			// System.out.println("Operators : " + resultOperators);
+			// System.out.println("Operands : " + resultOperands + "\n");
 
 			System.out.println(expression + " = " + resultOperands.get(0));
 
 		} catch (Exception evaluateException) {
 			System.out.println("Wrong expression! ");
 		}
-
+		
+	}
+	
+	public static void main(String[] args) {
+		
+		new CalculatorExpression().Calculator();
+		
 	}
 
 }
